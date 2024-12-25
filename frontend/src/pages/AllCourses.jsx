@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 const courses = [
   {
     title: 'Web Development Bootcamp',
@@ -22,18 +21,32 @@ const courses = [
   },
 ];
 
-function FeaturedCourses() {
+function AllCourses() {
   return (
-    <div className="bg-gray-50">
-      <div className="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-            Featured Courses
-          </h2>
-          <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-500 sm:mt-4">
-            Explore our most popular courses and start learning today
-          </p>
+    <div className="min-h-screen">
+      <div className="px-4 py-8 sm:p-6 lg:px-8">
+        <h1 className="text-3xl mb-6 text-gray-900 font-bold">
+          Explore Our Courses
+        </h1>
+        {/* Search Box and Filter Option*/}
+        <div className="space-y-4 sm:flex sm:space-x-4 items-center">
+          <input
+            className="p-2.5 border border-gray-300 text-sm font-medium rounded-md w-full"
+            type="text"
+            placeholder="Search courses..."
+          />
+          <select
+            id="small"
+            className="w-full p-2.5 text-sm text-gray-900 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 focus:border-2 sm:w-52"
+          >
+            <option selected>Filter by level</option>
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advance">Advanced</option>
+          </select>
         </div>
+
+        {/* All courses */}
         <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {courses.map((course, index) => (
             <div
@@ -66,8 +79,8 @@ function FeaturedCourses() {
                   </div>
                   <div className="ml-auto">
                     <Link
-                      to={`/courses/${encodeURIComponent(course.title)}`}
-                      className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      to="/course"
+                      className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gray-900 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
                       View Details
                     </Link>
@@ -82,4 +95,4 @@ function FeaturedCourses() {
   );
 }
 
-export default FeaturedCourses;
+export default AllCourses;

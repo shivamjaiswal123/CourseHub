@@ -17,9 +17,9 @@ const courseSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    published: {
+    featured: {
         type: Boolean,
-        default: true
+        default: false
     }
 })
 

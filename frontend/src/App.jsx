@@ -7,6 +7,7 @@ import Signin from './pages/Signin';
 import AllCourses from './pages/AllCourses';
 import CourseDetail from './pages/CourseDetail';
 import RootLayout from './components/RootLayout';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
       </Routes>
+      <ToastContainer stacked autoClose={2000} />;
     </>
   );
 }

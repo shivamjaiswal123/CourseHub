@@ -1,27 +1,39 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-const courses = [
-  {
-    title: 'Web Development Bootcamp',
-    instructor: 'Jane Doe',
-    price: '$99.99',
-    image: '/placeholder.svg?height=200&width=300',
-  },
-  {
-    title: 'Data Science Fundamentals',
-    instructor: 'John Smith',
-    price: '$89.99',
-    image: '/placeholder.svg?height=200&width=300',
-  },
-  {
-    title: 'UX/UI Design Masterclass',
-    instructor: 'Emily Johnson',
-    price: '$79.99',
-    image: '/placeholder.svg?height=200&width=300',
-  },
-];
+import { useQuery } from '@tanstack/react-query';
+import { allCourse } from '../api/courses.api';
+import { AlertTriangle } from 'lucide-react';
 
 function AllCourses() {
+  const {
+    data: allCourses,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ['all-courses'],
+    queryFn: allCourse,
+  });
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <span class="loading loading-bars loading-md" />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="flex flex-col justify-center items-center space-y-1 h-screen">
+        <AlertTriangle size={36} />
+        <span className="text-3xl font-medium text-black">Opps...!</span>
+        <span className="text-lg font-medium text-gray-800">
+          Something went wrong.
+        </span>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen">
       <div className="px-4 py-8 sm:p-6 lg:px-8">
@@ -48,7 +60,7 @@ function AllCourses() {
 
         {/* All courses */}
         <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {courses.map((course, index) => (
+          {allCourses.courses.map((course, index) => (
             <div
               key={index}
               className="flex flex-col rounded-lg shadow-lg overflow-hidden"
@@ -56,7 +68,7 @@ function AllCourses() {
               <div className="flex-shrink-0">
                 <img
                   className="h-48 w-full object-cover"
-                  src={course.image}
+                  src={course.thumbnail}
                   alt={course.title}
                   width={300}
                   height={200}
@@ -68,18 +80,19 @@ function AllCourses() {
                     {course.title}
                   </h3>
                   <p className="mt-3 text-base text-gray-500">
-                    Instructor: {course.instructor}
+                    {/* Instructor: {course.instructor} */}
                   </p>
                 </div>
                 <div className="mt-6 flex items-center">
                   <div className="flex-shrink-0">
                     <span className="text-2xl font-bold text-gray-900">
-                      {course.price}
+                      ₹{course.price}
                     </span>
                   </div>
                   <div className="ml-auto">
                     <Link
-                      to="/course"
+                      to={`/course/${course._id}`}
+                      state={course}
                       className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gray-900 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
                       View Details

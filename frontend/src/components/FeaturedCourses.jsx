@@ -22,7 +22,7 @@ function FeaturedCourses() {
         </div>
         {isLoading ? (
           <div className="flex justify-center items-center h-48">
-            <span class="loading loading-bars loading-md" />
+            <span className="loading loading-bars loading-md" />
           </div>
         ) : (
           <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">

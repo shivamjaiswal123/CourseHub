@@ -8,6 +8,8 @@ import AllCourses from './pages/AllCourses';
 import CourseDetail from './pages/CourseDetail';
 import RootLayout from './components/RootLayout';
 import { ToastContainer } from 'react-toastify';
+import ProtectedRoute from './components/ProtectedRoute';
+import Enroll from './pages/Enroll';
 
 function App() {
   return (
@@ -20,6 +22,14 @@ function App() {
         </Route>
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
+        <Route
+          path="/purchase"
+          element={
+            <ProtectedRoute>
+              <Enroll />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       <ToastContainer stacked autoClose={2000} />;
     </>

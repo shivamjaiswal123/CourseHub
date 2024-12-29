@@ -4,11 +4,13 @@ import SubHeading from '../components/SubHeading';
 import InputField from '../components/InputField';
 import Button from '../components/Button';
 import AccountInstruction from '../components/AccountInstruction';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { useMutation } from '@tanstack/react-query';
 import { signin } from '../api/user.api';
 import { toast } from 'react-toastify';
+import { authState } from '../store/atoms/auth.atom';
+import { useSetRecoilState } from 'recoil';
 
 const form = {
   email: '',
@@ -17,12 +19,16 @@ const form = {
 
 function Signin() {
   const [formData, setFormData] = useState(form);
+  const setAuth = useSetRecoilState(authState);
+  const navigate = useNavigate();
 
   const { mutate: doSignin, isPending } = useMutation({
     mutationFn: signin,
     onSuccess: (data) => {
       localStorage.setItem('token', data.token);
+      setAuth(data.token);
       toast.success(data.message);
+      navigate('/');
     },
     onError: (error) => {
       toast.error(error.response.data.message);

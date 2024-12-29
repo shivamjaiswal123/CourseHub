@@ -1,9 +1,32 @@
 import { BarChart, CircleCheckBig, Clock } from 'lucide-react';
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+
+const course = {
+  id: 1,
+  title: 'Web Development Bootcamp',
+  instructor: 'Jane Doe',
+  level: 'Beginner',
+  duration: '12 weeks',
+  rating: 4.8,
+  students: 10234,
+  price: 99.99,
+  image: '/placeholder.svg?height=400&width=600',
+  description:
+    'This comprehensive Web Development Bootcamp covers everything you need to know to become a full-stack web developer. From HTML and CSS basics to advanced JavaScript, React, Node.js, and database management, this course will take you from beginner to job-ready.',
+  learningObjectives: [
+    'Understand the fundamentals of web development',
+    'Master HTML5, CSS3, and modern JavaScript',
+    'Build responsive and interactive websites',
+    'Learn backend development with Node.js and Express',
+    'Work with databases like MongoDB and MySQL',
+    'Develop full-stack applications using the MERN stack',
+  ],
+};
 
 function CourseDetail() {
   const { state } = useLocation();
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen">
@@ -50,8 +73,11 @@ function CourseDetail() {
             </div>
             <div>
               <p className="font-medium text-2xl mb-3">${state.price}</p>
-              <button className="bg-black text-white w-full py-2 rounded-md font-medium">
-                <Link to="purchase">Enroll now</Link>
+              <button
+                onClick={() => navigate('/purchase')}
+                className="bg-black text-white w-full py-2 rounded-md font-medium"
+              >
+                Enroll now
               </button>
             </div>
             <div className="space-y-2 mt-3 font-medium">

@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { signup } from '../api/user.api';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
+import { useSetRecoilState } from 'recoil';
+import { authState } from '../store/atoms/auth.atom';
 
 const form = {
   username: '',
@@ -13,12 +15,16 @@ const form = {
 
 function Signup() {
   const [formData, setFormData] = useState(form);
+  const setAuth = useSetRecoilState(authState);
+  const navigate = useNavigate();
 
   const { mutate: doSignup, isPending } = useMutation({
     mutationFn: signup,
     onSuccess: (data) => {
       localStorage.setItem('token', data.token);
+      setAuth(data.token);
       toast.success(data.message);
+      navigate('/');
     },
     onError: (error) => {
       toast.error(error.response.data.message);

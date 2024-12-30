@@ -15,10 +15,10 @@ const registerAdmin = async (req, res) => {
         const parsedPayload = registerSchema.safeParse(req.body)
         if(!parsedPayload.success){
             return res.status(400).json({
-                error: parsedPayload.error.errors[0].message
+                message: parsedPayload.error.errors[0].message
             })
         }
-        const { username, email, password, isAdmin} = req.body
+        const { username, email, password} = req.body
 
         // Check if account already exist with the given username or email
         const userAlreadyExist = await User.findOne({
@@ -47,7 +47,7 @@ const registerAdmin = async (req, res) => {
             username,
             email,
             password: hashedPass,
-            isAdmin
+            isAdmin: true
         })
 
         // Generate token with user id as payload
@@ -74,7 +74,7 @@ const loginAdmin = async (req, res) => {
         const parsedPayload = loginSchema.safeParse(req.body)
         if(!parsedPayload.success){
             return res.status(400).json({
-                error: parsedPayload.error.errors[0].message
+                message: parsedPayload.error.errors[0].message
             })
         }
 
@@ -126,7 +126,7 @@ const changeCurrentPassword = async (req, res) => {
         const parsedPayload = passwordSchema.safeParse(req.body)
         if(!parsedPayload.success){
             return res.status(400).json({
-                error: parsedPayload.error.errors[0].message 
+                message: parsedPayload.error.errors[0].message 
             })
         }
 
@@ -166,7 +166,7 @@ const changeCurrentPassword = async (req, res) => {
 
 const publishCourse = async(req, res) => {
     try {
-        const { title, description, price, thumbnail } = req.body
+        const { title, description, price, thumbnail, learningObjectives } = req.body
 
         const user = req.currentUser
 
@@ -174,7 +174,8 @@ const publishCourse = async(req, res) => {
             title,
             description,
             price,
-            thumbnail
+            thumbnail,
+            learningObjectives
         })
 
         await User.findByIdAndUpdate({ _id: user._id }, {

@@ -20,6 +20,10 @@ const courseSchema = new mongoose.Schema({
     featured: {
         type: Boolean,
         default: false
+    },
+    learningObjectives: {
+        type: Array,
+        required: true
     }
 })
 

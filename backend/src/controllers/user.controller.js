@@ -15,7 +15,7 @@ const registerUser = async (req, res) => {
         const parsedPayload = registerSchema.safeParse(req.body)
         if(!parsedPayload.success){
             return res.status(400).json({
-                error: parsedPayload.error.errors[0].message
+                message: parsedPayload.error.errors[0].message
             })
         }
         const { username, email, password} = req.body
@@ -73,7 +73,7 @@ const loginUser = async (req, res) => {
         const parsedPayload = loginSchema.safeParse(req.body)
         if(!parsedPayload.success){
             return res.status(400).json({
-                error: parsedPayload.error.errors[0].message
+                message: parsedPayload.error.errors[0].message
             })
         }
 
@@ -125,7 +125,7 @@ const changeCurrentPassword = async (req, res) => {
         const parsedPayload = passwordSchema.safeParse(req.body)
         if(!parsedPayload.success){
             return res.status(400).json({
-                error: parsedPayload.error.errors[0].message 
+                message: parsedPayload.error.errors[0].message 
             })
         }
 

@@ -1,6 +1,6 @@
 import { ArrowLeft } from 'lucide-react';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { signup } from '../api/user.api';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';

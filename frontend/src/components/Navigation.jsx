@@ -1,16 +1,33 @@
 import React, { useState } from 'react';
 import { Book, LogOut, Menu, User, X } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { authState } from '../store/atoms/auth.atom';
+import { useQuery } from '@tanstack/react-query';
+import { getMe } from '../api/user.api';
 
 function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const auth = useRecoilValue(authState);
+  const [auth, setAuth] = useRecoilState(authState);
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['me'],
+    queryFn: getMe,
+    enabled: !!auth, // Only fetch data when the user is authenticated
+  });
+
+  if (isLoading) {
+    return;
+  }
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    setAuth(null);
   };
 
   return (
@@ -59,8 +76,8 @@ function Navigation() {
                 >
                   <li>
                     <div className="flex flex-col">
-                      John doe
-                      <span className="badge">john@gmail.com</span>
+                      {data.user.username}
+                      <span className="badge">{data.user.email}</span>
                     </div>
                   </li>
                   <li>
@@ -70,7 +87,7 @@ function Navigation() {
                     <Link to="/my-purchases">Purchase</Link>
                   </li>
                   <li>
-                    <button className="text-red-600">
+                    <button onClick={handleLogout} className="text-red-600">
                       <LogOut size={18} />
                       Logout
                     </button>
@@ -130,7 +147,10 @@ function Navigation() {
                 >
                   Purchase
                 </Link>
-                <button className="text-red-600 w-full hover:bg-gray-100 py-2 rounded font-medium">
+                <button
+                  onClick={handleLogout}
+                  className="text-red-600 w-full hover:bg-gray-100 py-2 rounded font-medium"
+                >
                   Logout
                 </button>
               </div>

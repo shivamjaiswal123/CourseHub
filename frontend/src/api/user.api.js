@@ -11,3 +11,12 @@ export const signin = async (formData) => {
     const response = await axios.post(`${BASE_URL}/user/login`, formData)
     return response.data
 }
+
+export const getMe = async () => {
+    const response = await axios.get(`${BASE_URL}/user/me`, {
+        headers: {
+            Authorization: localStorage.getItem('token')
+        }
+    })
+    return response.data
+}

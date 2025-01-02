@@ -10,6 +10,7 @@ import RootLayout from './components/RootLayout';
 import { ToastContainer } from 'react-toastify';
 import ProtectedRoute from './components/ProtectedRoute';
 import Enroll from './pages/Enroll';
+import MyPurchase from './pages/MyPurchase';
 
 function App() {
   return (
@@ -19,17 +20,18 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/courses" element={<AllCourses />} />
           <Route path="/course/:id" element={<CourseDetail />} />
+          <Route path="/my-purchases" element={<MyPurchase />} />
         </Route>
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
-        <Route
+        {/* <Route
           path="/purchase"
           element={
             <ProtectedRoute>
               <Enroll />
             </ProtectedRoute>
           }
-        />
+        /> */}
       </Routes>
       <ToastContainer stacked autoClose={2000} />;
     </>

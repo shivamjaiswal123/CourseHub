@@ -20,3 +20,12 @@ export const getMe = async () => {
     })
     return response.data
 }
+
+export const myPurchase = async () => {
+    const response = await axios.get(`${BASE_URL}/user/courses/purchased`, {
+        headers: {
+            Authorization: localStorage.getItem('token')
+        }
+    })
+    return response.data
+}

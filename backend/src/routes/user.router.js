@@ -8,8 +8,8 @@ const authMiddleware = require("../middleware/auth.middleware")
 router.route("/register").post(registerUser)
 router.route("/login").post(loginUser)
 router.route("/me").get(authMiddleware, currentUser)
-router.route("/change-password").post(authMiddleware, changeCurrentPassword)
+router.route("/change-password").put(authMiddleware, changeCurrentPassword)
 router.route("/purchase-course/:id").post(authMiddleware, purchaseCourse)
-router.route("/courses").get(authMiddleware, allPurchasedCourses)
+router.route("/courses/purchased").get(authMiddleware, allPurchasedCourses)
 
 module.exports = router

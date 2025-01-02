@@ -28,6 +28,7 @@ function Navigation() {
   const handleLogout = () => {
     localStorage.clear();
     setAuth(null);
+    navigate('/');
   };
 
   return (

@@ -76,7 +76,7 @@ function CourseDetail() {
               />
             </div>
             <div>
-              <p className="font-medium text-2xl mb-3">${state.price}</p>
+              <p className="font-medium text-2xl mb-3">₹{state.price}</p>
               <button
                 onClick={enrollToCourse}
                 className="bg-black text-white w-full py-2 rounded-md font-medium disabled:bg-gray-600"
